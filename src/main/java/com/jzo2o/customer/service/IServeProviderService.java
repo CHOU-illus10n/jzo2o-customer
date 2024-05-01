@@ -121,4 +121,12 @@ public interface IServeProviderService extends IService<ServeProvider> {
      * @return
      */
     CertificationStatusDTO getCertificationStatus(Integer userType, Long providerId);
+
+    /**
+     * 机构注册用户
+     * @param institutionRegisterReqDTO
+     */
+    void registerInstitution(InstitutionRegisterReqDTO institutionRegisterReqDTO);
+
+    void resetPassword(InstitutionResetPasswordReqDTO institutionResetPasswordReqDTO);
 }

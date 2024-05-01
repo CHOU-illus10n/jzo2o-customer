@@ -206,6 +206,39 @@ public class ServeProviderServiceImpl extends ServiceImpl<ServeProviderMapper, S
         }
     }
 
+    @Override
+    public void registerInstitution(InstitutionRegisterReqDTO institutionRegisterReqDTO) {
+        // 校验验证码
+        boolean verifyResult = smsCodeApi.verify(institutionRegisterReqDTO.getPhone(), SmsBussinessTypeEnum.INSTITION_REGISTER, institutionRegisterReqDTO.getVerifyCode()).getIsSuccess();
+        if (!verifyResult) {
+            throw new BadRequestException("验证码错误");
+        }
+        //新增机构
+        String encode = passwordEncoder.encode(institutionRegisterReqDTO.getPassword());
+        owner.add(institutionRegisterReqDTO.getPhone(), UserType.INSTITUTION, encode);
+    }
+
+    @Override
+    public void resetPassword(InstitutionResetPasswordReqDTO institutionResetPasswordReqDTO) {
+        // 校验验证码
+        boolean verifyResult = smsCodeApi.verify(institutionResetPasswordReqDTO.getPhone(), SmsBussinessTypeEnum.INSTITUTION_RESET_PASSWORD, institutionResetPasswordReqDTO.getVerifyCode()).getIsSuccess();
+        if (!verifyResult) {
+            throw new BadRequestException("验证码错误");
+        }
+        // 校验手机号是否存在
+        ServeProvider serveProvider = lambdaQuery()
+                .eq(ServeProvider::getPhone, institutionResetPasswordReqDTO.getPhone())
+                .one();
+        if (serveProvider == null) {
+            throw new BadRequestException("手机号不存在");
+        }
+        // 更新密码
+        String encode = passwordEncoder.encode(institutionResetPasswordReqDTO.getPassword());
+        lambdaUpdate().set(ServeProvider::getPassword, encode)
+                .eq(ServeProvider::getId, serveProvider.getId())
+                .update();
+    }
+
     /**
      * 根据服务人员/机构id查询基本信息
      *
