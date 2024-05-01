@@ -27,4 +27,25 @@ public interface IAddressBookService extends IService<AddressBook> {
      * @return 地址编码
      */
     List<AddressBookResDTO> getByUserIdAndCity(Long userId, String cityCode);
+
+    /**
+     * 添加地址
+     * @param addressBookUpsertReqDTO
+     */
+    void addAddress(AddressBookUpsertReqDTO addressBookUpsertReqDTO);
+
+    /**
+     * 分页查询
+     *
+     * @param addressBookPageQueryReqDTO 查询条件
+     * @return 分页结果
+     */
+    PageResult<AddressBookResDTO> page(AddressBookPageQueryReqDTO addressBookPageQueryReqDTO);
+
+    void updateAddress(Long id, AddressBookUpsertReqDTO addressBookUpsertReqDTO);
+
+
+    void setDefaultAddress(Long userId, Long id, Integer flag);
+
+    AddressBook getDefaultAddress(Long userId);
 }
