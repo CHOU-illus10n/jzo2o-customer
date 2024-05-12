@@ -1,14 +1,12 @@
 package com.jzo2o.customer.controller.operation;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.jzo2o.customer.model.dto.request.CertificationAuditReqDTO;
 import com.jzo2o.customer.model.dto.response.WorkerCertificationResDTO;
 import com.jzo2o.customer.service.IWorkerCertificationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -28,4 +26,5 @@ public class WorkerCertificationController {
     public WorkerCertificationResDTO queryById(@PathVariable("id") Long id) {
         return BeanUtil.toBean(workerCertificationService.getById(id), WorkerCertificationResDTO.class);
     }
+
 }

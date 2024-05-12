@@ -9,10 +9,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jzo2o.customer.enums.CertificationStatusEnum;
 import com.jzo2o.customer.mapper.WorkerCertificationMapper;
 import com.jzo2o.customer.model.domain.WorkerCertification;
+import com.jzo2o.customer.model.domain.WorkerCertificationAudit;
 import com.jzo2o.customer.model.dto.WorkerCertificationUpdateDTO;
+import com.jzo2o.customer.model.dto.request.WorkerCertificationAuditAddReqDTO;
 import com.jzo2o.customer.model.dto.response.WorkerCertificationResDTO;
 import com.jzo2o.customer.service.IWorkerCertificationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
@@ -25,7 +29,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class WorkerCertificationServiceImpl extends ServiceImpl<WorkerCertificationMapper, WorkerCertification> implements IWorkerCertificationService {
 
-
+@Autowired
+private IWorkerCertificationService workerCertificationService;
 
 
     /**
@@ -46,4 +51,6 @@ public class WorkerCertificationServiceImpl extends ServiceImpl<WorkerCertificat
                 .set(ObjectUtil.isNotEmpty(workerCertificationUpdateDTO.getCertificationTime()), WorkerCertification::getCertificationTime, workerCertificationUpdateDTO.getCertificationTime());
         super.update(updateWrapper);
     }
+
+
 }

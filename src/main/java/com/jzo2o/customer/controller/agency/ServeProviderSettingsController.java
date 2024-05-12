@@ -37,16 +37,16 @@ public class ServeProviderSettingsController {
         return serveProviderSettingsService.getServeScope();
     }
 
-    @PutMapping("/pick-up")
-    @ApiOperation("接单设置")
-    public void setPickUp(@RequestBody ServePickUpReqDTO servePickUpReqDTO) {
-//        serveProviderSettingsService.setPickUp(servePickUpReqDTO);
-        serveProviderSettingsService.setPickUp(UserContext.currentUserId(), servePickUpReqDTO.getCanPickUp());
-    }
-
-    @GetMapping("/status")
-    @ApiOperation("获取所有设置状态")
-    public ServeSettingsStatusResDTO getStatus() {
-        return serveProviderSettingsService.getSettingStatus();
-    }
+//    @PutMapping("/pick-up")
+//    @ApiOperation("接单设置")
+//    public void setPickUp(@RequestBody ServePickUpReqDTO servePickUpReqDTO) {
+////        serveProviderSettingsService.setPickUp(servePickUpReqDTO);
+//        serveProviderSettingsService.setPickUp(UserContext.currentUserId(), servePickUpReqDTO.getCanPickUp());
+//    }
+//
+//    @GetMapping("/status")
+//    @ApiOperation("获取所有设置状态")
+//    public ServeSettingsStatusResDTO getStatus() {
+//        return serveProviderSettingsService.getSettingStatus();
+//    }
 }
